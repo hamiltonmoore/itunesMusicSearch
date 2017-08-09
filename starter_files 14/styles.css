@@ -8,3 +8,17 @@ input {
   font-size: 2rem;
   border: 1px solid black;
 }
+
+img {
+  width: 15rem;
+  height: 15rem;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+header {
+  padding: 2rem;
+}

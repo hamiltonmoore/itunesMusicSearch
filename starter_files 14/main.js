@@ -9,27 +9,31 @@
 // 5. Create a way to listen for a click that will play the song in the audio play
 
 let search = document.getElementById("mySearch");
+let resultsDisplay = document.querySelector(".results");
 
 search.addEventListener("keyup", function (event) {
-  if (event.keyCode == 13) {
-    let url = "?q=" + search.value;
+  console.log('event: ', event);
+  if (event.which == 13) {
+    console.log(event);
+    let url = "https://itunes.apple.com/search?term=" + search.value;
+    console.log('url: ', url);
 
     axios.get(url)
       .then(function (response) {
-
-
-        for (i = 0; i < response.data.results.length; i++) {
-          let data = response.data.results[i];
-          if (data.thumbnail === '') {
-            const recipe =
-              `<img src="">`
-            document.querySelector(".boxes").innerHTML += recipe;
+        results = response.data.results;
+        for (i = 0; i < results.length; i++) {
+          let data = results[i];
+          console.log('data: ', data);
+          if (data.artworkUrl100 === '') {
+            const treehouse =
+              `<img src="/Users/hamiltonmoore/ironyard/front-end/projects/week4/week-four-project/starter_files 14/Random-Pictures-of-Conceptual-and-Creative-Ideas-02.jpg">`
+            resultsDisplay.innerHTML += results;
           } else {
             const recipe =
-              `<img src="${data.thumbnail}" >`
-            document.querySelector(".boxes").innerHTML += recipe;
+              `<img src="${data.artworkUrl100}" >`
+            resultsDisplay.innerHTML += recipe;
           }
         }
       });
   }
-});
+})
