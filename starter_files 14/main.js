@@ -13,6 +13,7 @@ let resultsDisplay = document.querySelector(".results");
 
 search.addEventListener("keyup", function (event) {
   if (event.which == 13) {
+    resultsDisplay.innerHTML = '';
     let url = "https://itunes.apple.com/search?term=" + search.value;
 
     axios.get(url)
@@ -23,24 +24,24 @@ search.addEventListener("keyup", function (event) {
           console.log('data: ', data);
           const artwork =
             `<div class="styling">
-              <img src="${data.artworkUrl100}" >
+              <img src="${data.artworkUrl100}" id="${data.previewUrl}">
               <p>${data.trackName}</p>
-              <p>${data.artistName} ${data.previewUrl}</p>
+              <p>${data.artistName} </p>
             </div>`
 
-          // let trackSource = `${data.previewurl}`;
           resultsDisplay.innerHTML += artwork;
-
-          document.querySelector(".results").addEventListener("click", function (e) {
-            if (e.target && e.target.nodeName == "IMG") {
-              console.log("hello, a button was pressed");
-              document.querySelector("audio").setAttribute('src', data.previewUrl);
-            }
-          });
         }
-
-
       });
+  }
+});
+
+resultsDisplay.addEventListener("click", function (e) {
+  if (e.target && e.target.nodeName == "IMG") {
+
+    let song = e.target.getAttribute("id");
+    let player = document.querySelector(".music-player");
+    player.setAttribute('src', song);
+
   }
 });
 
