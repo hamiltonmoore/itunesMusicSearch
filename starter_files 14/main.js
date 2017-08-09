@@ -22,7 +22,9 @@ search.addEventListener("keyup", function (event) {
           let data = results[i];
           console.log('data: ', data);
           const artwork =
-            `<img src="${data.artworkUrl100}" >`
+            `<img src="${data.artworkUrl100}" >
+            <p>${data.trackName}</p>
+            <p>${data.artistName}</p>`
           resultsDisplay.innerHTML += artwork;
         }
       })
