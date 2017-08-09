@@ -12,11 +12,8 @@ let search = document.getElementById("mySearch");
 let resultsDisplay = document.querySelector(".results");
 
 search.addEventListener("keyup", function (event) {
-  console.log('event: ', event);
   if (event.which == 13) {
-    console.log(event);
     let url = "https://itunes.apple.com/search?term=" + search.value;
-    console.log('url: ', url);
 
     axios.get(url)
       .then(function (response) {
@@ -24,16 +21,10 @@ search.addEventListener("keyup", function (event) {
         for (i = 0; i < results.length; i++) {
           let data = results[i];
           console.log('data: ', data);
-          if (data.artworkUrl100 === '') {
-            const treehouse =
-              `<img src="/Users/hamiltonmoore/ironyard/front-end/projects/week4/week-four-project/starter_files 14/Random-Pictures-of-Conceptual-and-Creative-Ideas-02.jpg">`
-            resultsDisplay.innerHTML += results;
-          } else {
-            const recipe =
-              `<img src="${data.artworkUrl100}" >`
-            resultsDisplay.innerHTML += recipe;
-          }
+          const artwork =
+            `<img src="${data.artworkUrl100}" >`
+          resultsDisplay.innerHTML += artwork;
         }
-      });
-  }
-})
+      })
+  };
+});
