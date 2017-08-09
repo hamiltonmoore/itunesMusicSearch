@@ -22,7 +22,7 @@ search.addEventListener("keyup", function (event) {
           let data = response.data.results[i];
           if (data.thumbnail === '') {
             const recipe =
-              `<>`
+              `<img src="">`
             document.querySelector(".boxes").innerHTML += recipe;
           } else {
             const recipe =

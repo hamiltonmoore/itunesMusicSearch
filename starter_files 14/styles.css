@@ -1,3 +1,10 @@
 body {
   background-color: #60d9f1;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+input {
+  padding: .5rem .5rem .5rem .5rem;
+  font-size: 2rem;
+  border: 1px solid black;
 }
