@@ -22,11 +22,26 @@ search.addEventListener("keyup", function (event) {
           let data = results[i];
           console.log('data: ', data);
           const artwork =
-            `<img src="${data.artworkUrl100}" >
-            <p>${data.trackName}</p>
-            <p>${data.artistName}</p>`
+            `<div class="styling">
+              <img src="${data.artworkUrl100}" >
+              <p>${data.trackName}</p>
+              <p>${data.artistName} ${data.previewUrl}</p>
+            </div>`
+
+          // let trackSource = `${data.previewurl}`;
           resultsDisplay.innerHTML += artwork;
+
+          document.querySelector(".results").addEventListener("click", function (e) {
+            if (e.target && e.target.nodeName == "IMG") {
+              console.log("hello, a button was pressed");
+              document.querySelector("audio").setAttribute('src', data.previewUrl);
+            }
+          });
         }
-      })
-  };
+
+
+      });
+  }
 });
+
+
