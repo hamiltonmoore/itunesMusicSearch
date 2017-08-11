@@ -9,27 +9,43 @@
 // 5. Create a way to listen for a click that will play the song in the audio play
 
 let search = document.getElementById("mySearch");
+let resultsDisplay = document.querySelector(".results");
 
 search.addEventListener("keyup", function (event) {
-  if (event.keyCode == 13) {
-    let url = "?q=" + search.value;
+  if (event.which == 13) {
+    resultsDisplay.innerHTML = '';
+    let url = "https://itunes.apple.com/search?term=" + search.value;
+
+    let popup = document.querySelector("h1");
+    popup.textContent = "Click on an image to play song";
 
     axios.get(url)
       .then(function (response) {
+        results = response.data.results;
+        for (i = 0; i < results.length; i++) {
+          let data = results[i];
+          console.log('data: ', data);
+          const artwork =
+            `<div class="styling">
+              <img src="${data.artworkUrl100}" id="${data.previewUrl}">
+              <p>${data.trackName}</p>
+              <p>${data.artistName} </p>
+            </div>`
 
-
-        for (i = 0; i < response.data.results.length; i++) {
-          let data = response.data.results[i];
-          if (data.thumbnail === '') {
-            const recipe =
-              `<>`
-            document.querySelector(".boxes").innerHTML += recipe;
-          } else {
-            const recipe =
-              `<img src="${data.thumbnail}" >`
-            document.querySelector(".boxes").innerHTML += recipe;
-          }
+          resultsDisplay.innerHTML += artwork;
         }
       });
   }
 });
+
+resultsDisplay.addEventListener("click", function (e) {
+  if (e.target && e.target.nodeName == "IMG") {
+
+    let song = e.target.getAttribute("id");
+    let player = document.querySelector(".music-player");
+    player.setAttribute('src', song);
+
+  }
+});
+
+
