@@ -16,9 +16,8 @@ search.addEventListener("keyup", function (event) {
     resultsDisplay.innerHTML = '';
     let url = "https://itunes.apple.com/search?term=" + search.value;
 
-    let newpopup = document.querySelector("h1");
-    newpopup.textContent = "click in a row to play a song";
-
+    let popup = document.querySelector("h1");
+    popup.textContent = "Click on an image to play song";
 
     axios.get(url)
       .then(function (response) {
@@ -27,7 +26,8 @@ search.addEventListener("keyup", function (event) {
           let data = results[i];
           console.log('data: ', data);
           const artwork =
-            `<div class="styling" id="${data.previewUrl}">
+            `<div class="styling">
+              <img src="${data.artworkUrl100}" id="${data.previewUrl}">
               <p>${data.trackName}</p>
               <p>${data.artistName} </p>
             </div>`
@@ -39,21 +39,13 @@ search.addEventListener("keyup", function (event) {
 });
 
 resultsDisplay.addEventListener("click", function (e) {
-  if (e.target && e.target.nodeName == ".styling") {
+  if (e.target && e.target.nodeName == "IMG") {
 
     let song = e.target.getAttribute("id");
     let player = document.querySelector(".music-player");
-    player.setAttribute('div', song);
+    player.setAttribute('src', song);
 
   }
 });
 
-              // <img src="${data.artworkUrl100}">
 
-//the following was to add an additional bit of text to header. it worked, but wanted to do something different
-
-    // let popup = document.querySelector("header");
-    // let popupText = document.createElement("h2");
-    // let newText = document.createTextNode("click in a row to play song");
-    // popup.appendChild(popupText);
-    // popupText.appendChild(newText);
